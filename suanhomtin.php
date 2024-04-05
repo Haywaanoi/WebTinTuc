@@ -11,63 +11,41 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+<?php
+include_once ("include/connect.php");
+
+if (isset($_POST['btnthem'])) {
+    if ($_POST['ten_nhomtin'] == "") {
+        echo "Xin vui lòng nhập tên nhóm tin<br />";
+    } else {
+        $m = $_POST['ten_nhomtin'];
+        $id_nhomtin = $_GET['id_nhomtin'];
+    }
+    if (isset($m)) {
+        $sql = "UPDATE nhom_tin SET ten_nhomtin = :ten_nhomtin WHERE id_nhomtin = :id_nhomtin";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':ten_nhomtin', $m);
+        $query->bindParam(':id_nhomtin', $id_nhomtin);
+        $query->execute();
+        header("location:nhomtin.php");
+        exit();
+    }
+}
+
+$sql = "select * from nhom_tin where id_nhomtin = :id_nhomtin";
+$query = $dbh->prepare($sql);
+$query->bindParam(':id_nhomtin', $_GET['id_nhomtin']);
+$query->execute();
+
+$row = $query->fetch(PDO::FETCH_ASSOC);
+
+?>
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="lni lni-grid-alt"></i>
-                </button>
-                <div class="sidebar-logo">
-                    <a href="index.html">CodzSword</a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Admin</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Quản lí nhóm tin</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Quản lí loại tin</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Quản lí tin</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Quản bình luận</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
-        </aside>
+        <?php
+        include_once ("home_include/sidebar.php");
+        ?>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
                 <form action="#" class="d-none d-sm-inline-block">
@@ -92,32 +70,31 @@
                         <h3 class="fw-bold fs-4 mb-3">Nhóm tin</h3>
                         <div class="row">
                             <div class="col-12">
-                                <table class="table table-striped" >
-                                    <thead>
-                                        <tr class="highlight">
-                                            <th scope="col">#</th>
-                                            <th scope="col">Tên nhóm tin</th>
-                                            <th scope="col">ACtion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <form action="?id_nhomtin=<?php echo $row['id_nhomtin']; ?>" method="post" name="frm">
+                                    <table class="table table-striped">
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Nhóm tin 1</td>
-                                            <td><button>Sua</button> <button>Xoa</button></td>
+                                            <td colspan=2>Sửa Nhóm Tin</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">2</th>
-                                            <td>Nhóm tin 2</td>
-                                            <td><button>Sua</button> <button>Xoa</button></td>
+                                            <td>Mã nhóm tin</td>
+                                            <td><input type="text" disabled="disabled" name="id_nhomtin"
+                                                    value="<?php echo $row['id_nhomtin']; ?>" />
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">3</th>
-                                            <td>Nhóm tin 2</td>
-                                            <td><button>Sua</button> <button>Xoa</button></td>
+                                            <td>Tên nhóm tin</td>
+                                            <td><input type="text" name="ten_nhomtin"
+                                                    value="<?php echo $row['ten_nhomtin']; ?>" />
+                                            </td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                        <tr>
+                                            <td colspan=2 class="input"> <input type="submit" name="btnthem"
+                                                    value="Update" />
+                                                <input type="reset" name="" value="Hủy" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
