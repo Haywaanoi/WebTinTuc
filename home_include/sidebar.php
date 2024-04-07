@@ -15,13 +15,13 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="nhomtin.php" class="sidebar-link">
+            <a href="./nhomtin.php" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Quản lí nhóm tin</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="./loai_tin_view" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Quản lí loại tin</span>
             </a>
