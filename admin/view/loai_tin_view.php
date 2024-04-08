@@ -9,42 +9,25 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <?php
-include_once ("include/connect.php");
-
-if (isset($_POST['btnthem'])) {
-    if ($_POST['ten_nhomtin'] == "") {
-        echo "Xin vui lòng nhập tên nhóm tin<br />";
-    } else {
-        $m = $_POST['ten_nhomtin'];
-        $id_nhomtin = $_GET['id_nhomtin'];
-    }
-    if (isset($m)) {
-        $sql = "UPDATE nhom_tin SET ten_nhomtin = :ten_nhomtin WHERE id_nhomtin = :id_nhomtin";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':ten_nhomtin', $m);
-        $query->bindParam(':id_nhomtin', $id_nhomtin);
-        $query->execute();
-        header("location:nhomtin.php");
-        exit();
-    }
-}
-
-$sql = "select * from nhom_tin where id_nhomtin = :id_nhomtin";
-$query = $dbh->prepare($sql);
-$query->bindParam(':id_nhomtin', $_GET['id_nhomtin']);
-$query->execute();
-
-$row = $query->fetch(PDO::FETCH_ASSOC);
-
+include_once ("../include/connect.php");
+$hienthi = $dbh->query("SELECT * FROM loai_tin");
+$dem = $hienthi->rowCount();
+$hienthi->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <body>
     <div class="wrapper">
         <?php
-        include_once ("home_include/sidebar.php");
+        include_once ("./home_include/sidebar.php");
         ?>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
@@ -67,36 +50,38 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb">
-                        <h3 class="fw-bold fs-4 mb-3">Nhóm tin</h3>
-                        <div class="row">
-                            <div class="col-12">
-                                <form action="?id_nhomtin=<?php echo $row['id_nhomtin']; ?>" method="post" name="frm">
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <td colspan=2>Sửa Nhóm Tin</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mã nhóm tin</td>
-                                            <td><input type="text" disabled="disabled" name="id_nhomtin"
-                                                    value="<?php echo $row['id_nhomtin']; ?>" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tên nhóm tin</td>
-                                            <td><input type="text" name="ten_nhomtin"
-                                                    value="<?php echo $row['ten_nhomtin']; ?>" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan=2 class="input"> <input type="submit" name="btnthem"
-                                                    value="Update" />
-                                                <input type="reset" name="" value="Hủy" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
+                        <h3 class="fw-bold fs-4 mb-3">Loại tin</h3>
+                        <table id="example" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên Loại Tin</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $id = 1;
+                                $stt = 0;
+                                foreach ($hienthi as $row) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $stt += $id; ?></td>
+                                        <td><?php echo $row['ten_loaitin']; ?> </td>
+                                        <td>
+                                            <a href="./sualoaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                                <input type="button" value="Sửa" />
+                                            </a>
+                                            <a href="./xoaloaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                                <input type="button" value="Xóa" />
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                <?php }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </main>
@@ -126,10 +111,19 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
             </footer>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
 </body>
 
 </html>

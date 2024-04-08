@@ -1,3 +1,37 @@
+<?php
+include_once ("../include/connect.php");
+include_once ("encode.php");
+
+if (isset($_POST['btnthem'])) {
+    if ($_POST['ten_nhomtin'] == "") {
+        echo "Xin vui lòng nhập tên nhóm tin<br />";
+    } else {
+        $m = $_POST['ten_nhomtin'];
+        $id_nhomtin = $_GET['id_nhomtin'];
+        // $ten_nhomtin = cleanNonAsciiCharactersInString($_POST['ten_nhomtin']);
+        // $ten_nhomtin = explode(' ', $ten_nhomtin);
+        // $ten_nhomtin = implode('-', $ten_nhomtin);
+        // echo $ten_nhomtin;
+    }
+    if (isset($m)) {
+        $sql = "UPDATE nhom_tin SET ten_nhomtin = :ten_nhomtin WHERE id_nhomtin = :id_nhomtin";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':ten_nhomtin', $m);
+        $query->bindParam(':id_nhomtin', $id_nhomtin);
+        $query->execute();
+        // header("location:index.php");
+        exit();
+    }
+}
+
+$sql = "select * from nhom_tin where id_nhomtin = :id_nhomtin";
+$query = $dbh->prepare($sql);
+$query->bindParam(':id_nhomtin', $_GET['id_nhomtin']);
+$query->execute();
+
+$row = $query->fetch(PDO::FETCH_ASSOC);
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -9,18 +43,14 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<?php
-include_once ("../include/connect.php");
-$hienthi = $dbh->query("SELECT * FROM nhom_tin");
-$dem = $hienthi->rowCount();
-?>
+
 
 <body>
     <div class="wrapper">
         <?php
-        include_once ("../home_include/sidebar.php");
+        include_once ("home_include/sidebar.php");
         ?>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
@@ -46,43 +76,29 @@ $dem = $hienthi->rowCount();
                         <h3 class="fw-bold fs-4 mb-3">Nhóm tin</h3>
                         <div class="row">
                             <div class="col-12">
-                                <form action="" method="post" name="frm_nhom_tin">
+                                <form action="?id_nhomtin=<?php echo $row['id_nhomtin']; ?>" method="post" name="frm">
                                     <table class="table table-striped">
-                                        <thead>
-                                            <tr class="highlight">
-                                                <th scope="col">#</th>
-                                                <th scope="col">Tên nhóm tin</th>
-                                                <th scope="col">ACtion</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $i = 1;
-                                            $stt = 0;
-                                            if ($dem != "") {
-                                                while ($bien = $hienthi->fetch(PDO::FETCH_ASSOC)) {
-                                                  
-                                                    $stt += $i;
-                                                    ?>
-                                                    <tr> 
-                                                        <th scope="row"><?php echo $stt ?></th>
-                                                        <td>
-                                                            <?php echo $bien['ten_nhomtin'] ?>
-                                                        </td>
-                                                        <td>
-                                                            <input type="button"
-                                                                onclick="location.href='suanhomtin.php?id_nhomtin=<?php echo $bien['id_nhomtin'] ?>'"
-                                                                value="Sua" />
-                                                            <input type="button"
-                                                                onclick="location.href='xoanhomtin.php?id_nhomtin=<?php echo $bien['id_nhomtin'] ?>'"
-                                                                value="Xoa" />
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
+                                        <tr>
+                                            <td colspan=2>Sửa Nhóm Tin</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mã nhóm tin</td>
+                                            <td><input type="text" disabled="disabled" name="id_nhomtin"
+                                                    value="<?php echo $row['id_nhomtin']; ?>" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tên nhóm tin</td>
+                                            <td><input type="text" name="ten_nhomtin"
+                                                    value="<?php echo $row['ten_nhomtin']; ?>" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan=2 class="input">
+                                                <input type="submit" name="btnthem" value="Update" />
+                                                <input type="reset" name="" value="Hủy" />
+                                            </td>
+                                        </tr>
                                     </table>
                                 </form>
                             </div>
@@ -119,7 +135,7 @@ $dem = $hienthi->rowCount();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="../script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
