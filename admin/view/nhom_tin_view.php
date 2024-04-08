@@ -9,25 +9,24 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <?php
 include_once ("../include/connect.php");
-$hienthi = $dbh->query("SELECT * FROM loai_tin");
+$hienthi = $dbh->query("SELECT * FROM nhom_tin");
 $dem = $hienthi->rowCount();
-$hienthi->fetch(PDO::FETCH_ASSOC)
+$hienthi->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <body>
     <div class="wrapper">
         <?php
-        include_once ("../home_include/sidebar.php");
+        include_once ("./home_include/sidebar.php");
         ?>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
@@ -51,30 +50,37 @@ $hienthi->fetch(PDO::FETCH_ASSOC)
                 <div class="container-fluid">
                     <div class="mb">
                         <h3 class="fw-bold fs-4 mb-3">Nhóm tin</h3>
-                                    <table id="example" class="display" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>id</th>
-                                                <th>Tên Loại Tin</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $id = 1;
-                                            $stt=0;
-                                            foreach ($hienthi as $row) {
-                                                ?>
-                                                <tr>
-                                               <td><?php echo $stt += $id ; ?></td>
-                                                <td><?php echo $row['ten_loaitin'] ;?> </td>
-                                                <td><a href="xoaloaitin.php">Xóa</a>   <a href="sualoaitin.php">Sửa</a></td>
-                                              
-                                              </tr>"
-                                         <?php   }
-                                            ?>
-                                        </tbody>
-                                    </table>
+                        <table id="example" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên Loại Tin</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $id = 1;
+                                $stt = 0;
+                                foreach ($hienthi as $row) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $stt += $id; ?></td>
+                                        <td><?php echo $row['ten_nhomtin']; ?> </td>
+                                        <td>
+                                            <a href="./suanhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
+                                                <input type="button" value="Sửa" />
+                                            </a>
+                                            <a href="./xoanhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
+                                                <input type="button" value="Xóa" />
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                <?php }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </main>
@@ -104,18 +110,17 @@ $hienthi->fetch(PDO::FETCH_ASSOC)
             </footer>
         </div>
     </div>
-   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="../script.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="./js/script.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
     </script>
-
 </body>
 
 </html>
