@@ -19,10 +19,12 @@
 </head>
 <?php
 include_once ("../include/connect.php");
-$hienthi = $dbh->query("SELECT * FROM loai_tin");
+$hienthi = $dbh->query("SELECT * FROM loai_tin JOIN nhom_tin ON loai_tin.id_nhomtin = nhom_tin.id_nhomtin ");
 $dem = $hienthi->rowCount();
-$hienthi->fetch(PDO::FETCH_ASSOC);
+$hienthi->fetch(PDO::FETCH_ASSOC)
 ?>
+
+
 
 <body>
     <div class="wrapper">
@@ -51,10 +53,16 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                 <div class="container-fluid">
                     <div class="mb">
                         <h3 class="fw-bold fs-4 mb-3">Loại tin</h3>
+                        <div class="mb-3">
+                        <?php
+                         include("loaitin/modal_them_loaitin.php")
+                        ?>
+                        </div>
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Nhóm tin</th>
                                     <th>Tên Loại Tin</th>
                                     <th>Action</th>
                                 </tr>
@@ -67,12 +75,13 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                     ?>
                                     <tr>
                                         <td><?php echo $stt += $id; ?></td>
+                                        <td><?php echo $row['ten_nhomtin']; ?> </td>
                                         <td><?php echo $row['ten_loaitin']; ?> </td>
                                         <td>
-                                            <a href="./sualoaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                            <a href="loaitin/sualoaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
                                                 <input type="button" value="Sửa" />
                                             </a>
-                                            <a href="./xoaloaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                            <a href="loaitin/xoaloaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
                                                 <input type="button" value="Xóa" />
                                             </a>
                                         </td>
