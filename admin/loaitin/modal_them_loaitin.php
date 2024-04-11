@@ -6,7 +6,7 @@ $nhomtin1 = $nhomtin->rowCount();
 ?>
 <div class="button-add-student">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        data-bs-whatever="@mdo">Them</button>
+        data-bs-whatever="@mdo">Thêm</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -35,7 +35,7 @@ $nhomtin1 = $nhomtin->rowCount();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" class="btn btn-primary">Them</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Thêm</button>
                         </div>
                     </form>
                 </div>

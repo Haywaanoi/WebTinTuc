@@ -50,11 +50,16 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                 <div class="container-fluid">
                     <div class="mb">
                         <h3 class="fw-bold fs-4 mb-3">Nhóm tin</h3>
+                        <div class="mb-3">
+                        <?php
+                         include("nhomtin/modal_them_nhomtin.php")
+                        ?>
+                        </div>
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Tên Loại Tin</th>
+                                    <th>Tên Nhóm Tin</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -68,10 +73,10 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                         <td><?php echo $stt += $id; ?></td>
                                         <td><?php echo $row['ten_nhomtin']; ?> </td>
                                         <td>
-                                            <a href="./suanhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
+                                            <a href="nhomtin/sua_nhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
                                                 <input type="button" value="Sửa" />
                                             </a>
-                                            <a href="./xoanhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
+                                            <a href="nhomtin/xoa_nhomtin.php.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
                                                 <input type="button" value="Xóa" />
                                             </a>
                                         </td>

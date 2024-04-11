@@ -9,19 +9,19 @@
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="./admin.php" class="sidebar-link">
+            <a href="/WebTinTuc/admin/admin.php" class="sidebar-link">
                 <i class="lni lni-user"></i>
                 <span>Admin</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="./admin.php?admin=nhomtin" class="sidebar-link">
+            <a href="/WebTinTuc/admin/admin.php?admin=nhomtin" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Quản lí nhóm tin</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="./admin.php?admin=loaitin" class="sidebar-link">
+            <a href="/WebTinTuc/admin/admin.php?admin=loaitin" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Quản lí loại tin</span>
             </a>

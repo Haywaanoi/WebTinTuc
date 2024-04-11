@@ -15,7 +15,6 @@
 
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <?php
 include_once ("../include/connect.php");
@@ -23,8 +22,6 @@ $hienthi = $dbh->query("SELECT * FROM loai_tin JOIN nhom_tin ON loai_tin.id_nhom
 $dem = $hienthi->rowCount();
 $hienthi->fetch(PDO::FETCH_ASSOC)
 ?>
-
-
 
 <body>
     <div class="wrapper">
@@ -78,10 +75,10 @@ $hienthi->fetch(PDO::FETCH_ASSOC)
                                         <td><?php echo $row['ten_nhomtin']; ?> </td>
                                         <td><?php echo $row['ten_loaitin']; ?> </td>
                                         <td>
-                                            <a href="loaitin/sualoaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                            <a href="loaitin/sua_loaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
                                                 <input type="button" value="Sửa" />
                                             </a>
-                                            <a href="loaitin/xoaloaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
+                                            <a href="loaitin/xoa_loaitin.php?id_loaitin=<?php echo $row['id_loaitin'] ?>">
                                                 <input type="button" value="Xóa" />
                                             </a>
                                         </td>
