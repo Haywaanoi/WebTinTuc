@@ -1,6 +1,6 @@
 <?php
-include_once ("../include/connect.php");
-include_once ("encode.php");
+include_once ("../../include/connect.php");
+include_once ("../encode.php");
 
 if (isset($_POST['btnthem'])) {
     if ($_POST['ten_nhomtin'] == "") {
@@ -19,7 +19,7 @@ if (isset($_POST['btnthem'])) {
         $query->bindParam(':ten_nhomtin', $m);
         $query->bindParam(':id_nhomtin', $id_nhomtin);
         $query->execute();
-        // header("location:index.php");
+        header("location:/WebTinTuc/admin/admin.php?admin=nhomtin");
         exit();
     }
 }
@@ -43,14 +43,14 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 
 <body>
     <div class="wrapper">
         <?php
-        include_once ("home_include/sidebar.php");
+        include_once ("../home_include/sidebar.php");
         ?>
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
@@ -135,7 +135,7 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>
