@@ -12,13 +12,14 @@ if (isset($_POST['btnthem'])) {
         $noidung = $_POST['noi_dung'];
         $en_id = str_replace(" ", "-", $title);
         $slug = cleanNonAsciiCharactersInString($en_id);
-        $sql = ("UPDATE loai_tin SET ten_loaitin = ?, id_nhomtin =? where id_loaitin = ? ");
         $sql = ("UPDATE tin_tuc SET slug = ?, title = ?, noi_dung = ?, datetime = NOW(), id_loaitin = ? where id_tin = ? ");
         $stm = $dbh->prepare($sql);
         $stm->execute([$slug, $title, $noidung, $loaitin_id, $id_tin]);
         header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
         exit();
     }
+}elseif(isset($_POST["btnreset"])) {
+    header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
 }
 $loaitin = $dbh->query("SELECT * FROM loai_tin ");
 $loaitin->fetch(PDO::FETCH_ASSOC);
@@ -119,27 +120,11 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
                                                     ?>
                                                 </textarea>
                                             </td>
-                                            <!-- <td>
-                                                <select class="form-select" aria-label="Default select example"
-                                                    name="nhomtin">
-                                                    <option selected value="<?php //echo $row["id_nhomtin"] ?>">
-                                                        <?php //echo $row["ten_nhomtin"] ?>
-                                                    </option>
-                                                    <?php
-                                                    //foreach ($nhomtin as $nhom) { ?>
-                                                        <option value="<?php //echo $nhom["id_nhomtin"] ?>">
-                                                            <?php //echo $nhom["ten_nhomtin"] ?>
-                                                        </option>
-                                                        <?php
-                                                        //}
-                                                        ?>
-                                                </select>
-                                            </td> -->
                                         </tr>
                                         <tr>
                                             <td colspan=2 class="input">
                                                 <input type="submit" name="btnthem" value="Update" />
-                                                <input type="reset" name="" value="Hủy" />
+                                                <input type="submit" name="btnreset" value="Hủy" />
                                             </td>
                                         </tr>
                                     </table>

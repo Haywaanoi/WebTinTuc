@@ -51,9 +51,9 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                     <div class="mb">
                         <h3 class="fw-bold fs-4 mb-3">Tin tức</h3>
                         <div class="mb-3">
-                        <?php
-                        //  include("nhomtin/modal_them_nhomtin.php")
-                        ?>
+                            <a href="tintuc/them_tintuc.php">
+                                <input class="btn btn-primary" type="button" value="Thêm" />
+                            </a>
                         </div>
                         <table id="example" class="display" style="width:100%">
                             <thead>
