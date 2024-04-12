@@ -8,6 +8,9 @@ if (isset($_GET['admin']))
         case "loaitin":
             include("view/loai_tin_view.php");
             break;
+		case "tintuc":
+			include("view/tin_tuc_view.php");
+			break;
 	}
 else {
 	header("location:index.php");

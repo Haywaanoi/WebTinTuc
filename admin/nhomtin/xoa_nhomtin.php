@@ -1,5 +1,5 @@
 <?php
-include_once ('../include/connect.php');
+include_once ('../../include/connect.php');
 
 $select = "SELECT * FROM loai_tin where id_nhomtin = :id_nhomtin";
 $queryselect = $dbh->prepare($select);
@@ -13,8 +13,6 @@ if ($row == 0) {
     $query->execute();
 } else {
     echo 'Không thể xóa';
-    echo '<br/>';
-    echo '<a href="view/nhom_tin_view.php"> <input type="button" value="Quay về" /> </a>';
 }
-
+header('location: ../admin.php?admin=nhomtin');
 ?>

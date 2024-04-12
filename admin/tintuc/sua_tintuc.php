@@ -3,29 +3,30 @@ include_once ("../../include/connect.php");
 include_once ("../encode.php");
 
 if (isset($_POST['btnthem'])) {
-    if ($_POST['ten_loaitin'] == "") {
-        echo "Xin vui lòng nhập tên loại tin<br />";
+    if ($_POST['title'] == "") {
+        echo "Xin vui lòng nhập title<br />";
     } else {
-        $loaitin = $_POST['ten_loaitin'];
-        $id_loaitin = $_GET['id_loaitin'];
-        $nhomtin_id = $_POST['nhomtin'];
-        echo $nhomtin_id;
-    }
-    if (isset($loaitin)) {
+        $title = $_POST['title'];
+        $id_tin = $_GET['id_tin'];
+        $loaitin_id = $_POST['loaitin'];
+        $noidung = $_POST['noi_dung'];
+        $en_id = str_replace(" ", "-", $title);
+        $slug = cleanNonAsciiCharactersInString($en_id);
         $sql = ("UPDATE loai_tin SET ten_loaitin = ?, id_nhomtin =? where id_loaitin = ? ");
+        $sql = ("UPDATE tin_tuc SET slug = ?, title = ?, noi_dung = ?, datetime = NOW(), id_loaitin = ? where id_tin = ? ");
         $stm = $dbh->prepare($sql);
-        $stm->execute([$loaitin, $nhomtin_id, $id_loaitin]);
-        header("location:/WebTinTuc/admin/admin.php?admin=loaitin");
+        $stm->execute([$slug, $title, $noidung, $loaitin_id, $id_tin]);
+        header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
         exit();
     }
 }
-$nhomtin = $dbh->query("SELECT * FROM nhom_tin ");
-$nhomtin->fetch(PDO::FETCH_ASSOC);
-$nhomtin1 = $nhomtin->rowCount();
+$loaitin = $dbh->query("SELECT * FROM loai_tin ");
+$loaitin->fetch(PDO::FETCH_ASSOC);
+$loaitin1 = $loaitin->rowCount();
 
-$sql = "select * from loai_tin join nhom_tin on loai_tin.id_nhomtin = nhom_tin.id_nhomtin where id_loaitin = :id_loaitin";
+$sql = "select * from tin_tuc join loai_tin on loai_tin.id_loaitin = tin_tuc.id_loaitin where id_tin = :id_tin";
 $query = $dbh->prepare($sql);
-$query->bindParam(':id_loaitin', $_GET['id_loaitin']);
+$query->bindParam(':id_tin', $_GET['id_tin']);
 $query->execute();
 
 $row = $query->fetch(PDO::FETCH_ASSOC);
@@ -70,44 +71,70 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb">
-                        <h3 class="fw-bold fs-4 mb-3">Loại tin</h3>
+                        <h3 class="fw-bold fs-4 mb-3">Tin tức</h3>
                         <div class="row">
                             <div class="col-12">
-                                <form action="?id_loaitin=<?php echo $row['id_loaitin']; ?>" method="post" name="frm">
+                                <form action="?id_tin=<?php echo $row['id_tin']; ?>" method="post" name="frm">
                                     <table class="table table-striped">
                                         <tr>
-                                            <td colspan=2>Sửa Loại Tin</td>
+                                            <td colspan=2>Sửa tin tức</td>
                                         </tr>
                                         <tr>
-                                            <td>Mã loại tin</td>
-                                            <td><input type="text" disabled="disabled" name="id_loaitin"
-                                                    value="<?php echo $row['id_loaitin']; ?>" />
+                                            <td>Mã tin tức</td>
+                                            <td><input type="text" disabled="disabled" name="id_tintuc"
+                                                    value="<?php echo $row['id_tin']; ?>" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Tên loại tin</td>
-                                            <td><input type="text" name="ten_loaitin"
-                                                    value="<?php echo $row['ten_loaitin']; ?>" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tên nhóm tin</td>
+                                            <td>Loại tin</td>
                                             <td>
                                                 <select class="form-select" aria-label="Default select example"
-                                                    name="nhomtin">
-                                                    <option selected value="<?php echo $row["id_nhomtin"] ?>">
-                                                        <?php echo $row["ten_nhomtin"] ?>
+                                                    name="loaitin">
+                                                    <option selected value="<?php echo $row["id_loaitin"] ?>">
+                                                        <?php echo $row["ten_loaitin"] ?>
                                                     </option>
                                                     <?php
-                                                    foreach ($nhomtin as $nhom) { ?>
-                                                        <option value="<?php echo $nhom["id_nhomtin"] ?>">
-                                                            <?php echo $nhom["ten_nhomtin"] ?>
+                                                    foreach ($loaitin as $nhom) { ?>
+                                                        <option value="<?php echo $nhom["id_loaitin"] ?>">
+                                                            <?php echo $nhom["ten_loaitin"] ?>
                                                         </option>
                                                         <?php
                                                     }
                                                     ?>
                                                 </select>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td><input type="text" name="title" value="<?php echo $row['title']; ?>"
+                                                    style="width:100%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nội dung</td>
+                                            <td>
+                                                <textarea id="editor" name="noi_dung">
+                                                    <?php
+                                                    echo $row['noi_dung'];
+                                                    ?>
+                                                </textarea>
+                                            </td>
+                                            <!-- <td>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    name="nhomtin">
+                                                    <option selected value="<?php //echo $row["id_nhomtin"] ?>">
+                                                        <?php //echo $row["ten_nhomtin"] ?>
+                                                    </option>
+                                                    <?php
+                                                    //foreach ($nhomtin as $nhom) { ?>
+                                                        <option value="<?php //echo $nhom["id_nhomtin"] ?>">
+                                                            <?php //echo $nhom["ten_nhomtin"] ?>
+                                                        </option>
+                                                        <?php
+                                                        //}
+                                                        ?>
+                                                </select>
+                                            </td> -->
                                         </tr>
                                         <tr>
                                             <td colspan=2 class="input">
@@ -151,7 +178,15 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="../script.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </body>
 
 </html>
