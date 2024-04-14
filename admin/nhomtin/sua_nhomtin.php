@@ -8,10 +8,6 @@ if (isset($_POST['btnthem'])) {
     } else {
         $m = $_POST['ten_nhomtin'];
         $id_nhomtin = $_GET['id_nhomtin'];
-        // $ten_nhomtin = cleanNonAsciiCharactersInString($_POST['ten_nhomtin']);
-        // $ten_nhomtin = explode(' ', $ten_nhomtin);
-        // $ten_nhomtin = implode('-', $ten_nhomtin);
-        // echo $ten_nhomtin;
     }
     if (isset($m)) {
         $sql = "UPDATE nhom_tin SET ten_nhomtin = :ten_nhomtin WHERE id_nhomtin = :id_nhomtin";
