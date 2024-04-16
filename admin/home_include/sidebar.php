@@ -33,7 +33,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="/WebTinTuc/admin/admin.php?admin=binhluan" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Quản bình luận</span>
             </a>

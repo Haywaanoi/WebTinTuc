@@ -11,6 +11,8 @@ if (isset($_GET['admin']))
 		case "tintuc":
 			include("view/tin_tuc_view.php");
 			break;
+		case "binhluan":
+			include("view/binh_luan_view.php");
 	}
 else {
 	header("location:index.php");
