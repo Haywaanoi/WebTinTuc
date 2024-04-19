@@ -21,4 +21,3 @@ $row = $hienthi->fetch(PDO::FETCH_ASSOC);
     exit();
  }
 ?>
-header('location: ../admin.php?admin=binhluan');

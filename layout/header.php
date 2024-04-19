@@ -2,6 +2,7 @@
 include_once ("include/connect.php");
 $menusql = "SELECT * FROM nhom_tin";
 $menus = $dbh->prepare($menusql);
+$menus->execute();
 $dem = $menus->rowCount();
 $menus->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -64,7 +65,7 @@ $menus->fetch(PDO::FETCH_ASSOC);
 					foreach ($menus as $menu) {
 						?>
 						<li class="menu-has-children">
-							<a href="/<?php echo $menu['id_nhomtin'] ?>"><?php echo $menu['ten_nhomtin'] ?></a>
+							<a href="./index.php?id_nhomtin=<?php echo $menu['id_nhomtin'] ?>"><?php echo $menu['ten_nhomtin'] ?></a>
 						</li>
 						<?php
 					}
