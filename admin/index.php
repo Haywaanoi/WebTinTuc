@@ -46,6 +46,9 @@ $dem_tin = $tin->rowCount();
                 </form>
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav ms-auto">
+                        <li>
+                            <a href="../index.php">Về trang index </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
                                 <img src="/account.png" class="avatar img-fluid" alt="">
