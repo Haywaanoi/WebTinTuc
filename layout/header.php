@@ -25,6 +25,11 @@ $menus->fetch(PDO::FETCH_ASSOC);
 							if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 								echo '<li><a href="#"><p> Hello: ' . $_SESSION['name'] . '</p></a></li>';
 								echo '<li><a href="login/logout.php">Đăng Xuất</a></li>';
+								if ($_SESSION['role'] == 'admin') {
+									echo '
+									<li><a href="admin"><p>ADMIN PAGE</p></a></li>
+									';
+								}
 							} else {
 								include("modal_login.php");
 							}
