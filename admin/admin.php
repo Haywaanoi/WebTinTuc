@@ -1,10 +1,11 @@
-<?php
+<?php 
 session_start();
-// if (!isset($_SESSION['username']) or ($_SESSION['phanquyen'] == 1)) {
 
-// 	header('location:login.php');
-// 	exit();
-// }
+if ((!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) && ($_SESSION['role'] !== 'admin')) {
+    header("Location: ../index.php");
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html>

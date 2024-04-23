@@ -39,6 +39,12 @@
             </a>
         </li>
         <li class="sidebar-item">
+            <a href="../admin/admin.php?admin=taikhoan" class="sidebar-link">
+                <i class="lni lni-agenda"></i>
+                <span>Quản tài khoản</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
             <a href="#" class="sidebar-link">
                 <i class="lni lni-cog"></i>
                 <span>Setting</span>

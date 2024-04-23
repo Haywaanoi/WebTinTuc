@@ -1,3 +1,14 @@
+<?php 
+session_start();
+
+if ((!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) && ($_SESSION['role'] !== 'admin')) {
+    header("Location: ../index.php");
+    exit;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +22,17 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+<?php 
+include_once ("../include/connect.php");
+$nhom_tin = $dbh->query("SELECT * FROM nhom_tin");
+$dem_nhomtin = $nhom_tin->rowCount();
+
+$loai_tin = $dbh->query("SELECT * FROM loai_tin");
+$dem_loaitin = $loai_tin->rowCount();
+
+$tin = $dbh->query("SELECT * FROM tin_tuc");
+$dem_tin = $tin->rowCount();
+?>
 
 <body>
     <div class="wrapper">
@@ -44,19 +66,21 @@
                                 <div class="card border-0">
                                     <div class="card-body py-4">
                                         <h5 class="mb-2 fw-bold">
-                                            Memebers Progress
+                                           Số lượng nhóm tin
                                         </h5>
                                         <p class="mb-2 fw-bold">
-                                            $72,540
+                                            <?php
+                                            echo $dem_nhomtin;
+                                            ?>
                                         </p>
-                                        <div class="mb-0">
+                                        <!-- <div class="mb-0">
                                             <span class="badge text-success me-2">
                                                 +9.0%
                                             </span>
                                             <span class=" fw-bold">
                                                 Since Last Month
                                             </span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -64,79 +88,32 @@
                                 <div class="card  border-0">
                                     <div class="card-body py-4">
                                         <h5 class="mb-2 fw-bold">
-                                            Memebers Progress
+                                            Số lượng loại tin
                                         </h5>
                                         <p class="mb-2 fw-bold">
-                                            $72,540
+                                           <?php
+                                           echo $dem_loaitin
+                                           ?>
                                         </p>
-                                        <div class="mb-0">
-                                            <span class="badge text-success me-2">
-                                                +9.0%
-                                            </span>
-                                            <span class="fw-bold">
-                                                Since Last Month
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 ">
-                                <div class="card border-0">
+                                <div class="card  border-0">
                                     <div class="card-body py-4">
                                         <h5 class="mb-2 fw-bold">
-                                            Memebers Progress
+                                            Số lượng tin
                                         </h5>
                                         <p class="mb-2 fw-bold">
-                                            $72,540
+                                           <?php
+                                           echo $dem_tin
+                                           ?>
                                         </p>
-                                        <div class="mb-0">
-                                            <span class="badge text-success me-2">
-                                                +9.0%
-                                            </span>
-                                            <span class="fw-bold">
-                                                Since Last Month
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <h3 class="fw-bold fs-4 my-3">Avg. Agent Earnings
-                        </h3>
-                        <div class="row">
-                            <div class="col-12">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="highlight">
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
-                        </div>
-                    </div>
+                        </div>  
                 </div>
             </main>
             <footer class="footer">
