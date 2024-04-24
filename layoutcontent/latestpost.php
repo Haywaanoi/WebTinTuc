@@ -33,7 +33,7 @@
 					<!-- <li><a href="#"><span class="lnr lnr-bubble"></span>Comments</a></li> -->
 				</ul>
 				<p class="excert">
-					<?php echo $row['title'] ?>
+					<?php echo $row['sub_title'] ?>
 				</p>
 			</div>
 		</div>
