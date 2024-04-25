@@ -31,7 +31,11 @@ $menus->fetch(PDO::FETCH_ASSOC);
 									';
 								}
 							} else {
+<<<<<<< HEAD
 								include ("modal_login.php");
+=======
+								include("modal_login.php");
+>>>>>>> 731b684a4bbd003f0c12fd4ee35b83f6f60b0692
 							}
 							?>
 
