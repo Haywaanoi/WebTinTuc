@@ -18,7 +18,7 @@ session_start();
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>NTNExpress</title>
+	<title>Web Tin Tuc</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
 		CSS
@@ -31,9 +31,7 @@ session_start();
 	<link rel="stylesheet" href="css/animate.min.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
 	<link rel="stylesheet" href="css/jquery-ui.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -41,20 +39,11 @@ session_start();
 	<!-- START HEADER -->
 	<?php
 	include 'layout/header.php';
-	
 	?>
 	<!-- END HEADER -->
 
 	<div class="site-main-container">
 
-
-		<!-- --------------------------------------------------------------------------------------------------------------------------- -->
-		<?php
-		include_once ("include/connect.php");
-		if (isset($_GET['id_nhomtin'])) {
-			include 'nhomtin.php';	
-		} else {
-			?>
 		<!-- START HOT POST -->
 		<?php
 		include 'layoutcontent/toppost.php';
@@ -112,9 +101,7 @@ session_start();
 							<div class="form-group d-flex flex-row">
 								<div class="col-autos">
 									<div class="input-group">
-										<input class="form-control" placeholder="Địa chỉ Email"
-											onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'"
-											type="text">
+										<input class="form-control" placeholder="Địa chỉ Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" type="text">
 									</div>
 								</div>
 								<a href="#" class="bbtns">Đăng ký</a>
@@ -133,16 +120,9 @@ session_start();
 					</div>
 				</div>
 			</div>
-			</div>
-		</section>
-		<?php
-		}
-		?>
 	</div>
-
-	<!-- --------------------------------------------------------------------------------------------------------------------------- -->
-
-
+	</section>
+	</div>
 
 	<!-- START FOOTER -->
 	<?php
@@ -151,9 +131,7 @@ session_start();
 	<!-- END FOOTER -->
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
 	<script src="js/easing.min.js"></script>
@@ -167,9 +145,6 @@ session_start();
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/mail-script.js"></script>
 	<script src="js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
