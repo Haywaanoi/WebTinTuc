@@ -20,6 +20,23 @@ $menus->fetch(PDO::FETCH_ASSOC);
 			<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
 				<ul>
 					<li>
+							<?php
+							if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+								echo '<li><a href="#"><p> Hello: ' . $_SESSION['name'] . '</p></a></li>';
+								echo '<li><a href="login/logout.php">Đăng Xuất</a></li>';
+								if ($_SESSION['role'] == 'admin') {
+									echo '
+									<li><a href="admin"><p>ADMIN PAGE</p></a></li>
+									';
+								}
+							} else {
+
+								include("modal_login.php");
+							}
+							?>
+
+						</li>
+					<li>
 						<a href="tel:+440 012 3654 896">
 							<span class="lnr lnr-phone-handset"></span>
 							<span>+84 969 732 701</span>
