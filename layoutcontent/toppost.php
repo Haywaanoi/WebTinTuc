@@ -1,6 +1,6 @@
 <!-- Start top-post Area -->
 <?php
-include_once ("include/connect.php");
+include ("include/connect.php");
 ?>
 <section class="top-post-area pt-10">
 
@@ -34,7 +34,7 @@ include_once ("include/connect.php");
 					<ul class="tags">
 						<li><a href="#">Hot</a></li>
 					</ul>
-					<a href="<?php echo "https:vnexpress.net/" . $hot['slug'] . "-" . $hot['id_tin'] . ".html" ?>">
+					<a href="chitiettintuc.php?id=<?php echo $hot['id_tin']; ?>">
 						<?php
 						if ($i == 0) {
 							?>
