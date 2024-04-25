@@ -10,7 +10,7 @@
 		$i = 0;
 		foreach ($thethaos as $row) {
 			if ($i == 0) {
-				?>
+		?>
 				<div class="feature-img-wrap relative">
 					<div class="feature-img relative">
 						<div class="overlay overlay-bg"></div>
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="details">
-					<a href="<?php echo "https:vnexpress.net/" . $row['slug'] . "-" . $row['id_tin'] . ".html"; ?>">
+					<a href="chitiettintuc.php?id=<?php echo $row['id_tin']; ?>">
 						<h4 class="mt-20"><?php echo $row['title']; ?></h4>
 					</a>
 					<ul class="meta">
@@ -62,12 +62,12 @@
 							</ul>
 						</div>
 					</div>
-					<?php
+			<?php
 			}
-			if($i == $dem) {
+			if ($i == $dem) {
 				echo '</div>';
 			}
 		}
-		?>
+			?>
+				</div>
 	</div>
-</div>

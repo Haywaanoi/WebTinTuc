@@ -8,7 +8,7 @@
 	$lasts->bindParam(":limit", $dem, PDO::PARAM_INT);
 	$lasts->execute();
 	foreach ($lasts as $row) {
-		?>
+	?>
 		<div class="single-latest-post row align-items-center">
 			<div class="col-lg-5 post-left">
 				<div class="feature-img relative">
@@ -20,7 +20,7 @@
 				</ul>
 			</div>
 			<div class="col-lg-7 post-right">
-				<a href="<?php echo "https:vnexpress.net/" . $row['slug'] . "-" . $row['id_tin'] . ".html" ?>">
+				<a href="chitiettintuc.php?id=<?php echo $hot['id_tin']; ?>">
 					<h4>
 						<?php echo $row['title'] ?>
 					</h4>
@@ -33,11 +33,11 @@
 					<!-- <li><a href="#"><span class="lnr lnr-bubble"></span>Comments</a></li> -->
 				</ul>
 				<p class="excert">
-					<?php echo $row['sub_title'] ?>
+					<?php echo $row['title'] ?>
 				</p>
 			</div>
 		</div>
-		<?php
+	<?php
 	}
 	?>
 </div>

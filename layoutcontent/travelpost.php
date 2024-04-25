@@ -2,7 +2,7 @@
 	<h4 class="title">Du lịch</h4>
 
 	<?php
-	include_once ("include/connect.php");
+	include_once("include/connect.php");
 
 	$dem = 3;
 	$dulich = 'du-lich';
@@ -15,7 +15,7 @@
 	$i = 0;
 	while ($row = $travels->fetch(PDO::FETCH_ASSOC)) {
 		if ($i == 0) {
-			?>
+	?>
 			<div class="feature-post relative">
 				<div class="feature-img relative">
 					<div class="overlay overlay-bg">
@@ -42,11 +42,11 @@
 			<?php
 		} else {
 			if ($i == 1) {
-				?>
-				<div class="row mt-20 medium-gutters">
-					<?php
-			}
 			?>
+				<div class="row mt-20 medium-gutters">
+				<?php
+			}
+				?>
 				<div class="col-lg-6 single-popular-post">
 					<div class="feature-img-wrap relative">
 						<div class="feature-img relative">
@@ -59,7 +59,7 @@
 						</ul>
 					</div>
 					<div class="details">
-						<a href="<?php echo "https:vnexpress.net/" . $hot['slug'] . "-" . $hot['id_tin'] . ".html" ?>">
+						<a href="chitiettintuc.php?id=<?php echo $hot['id_tin']; ?>">
 							<h4><?php echo $row['title']; ?></h4>
 						</a>
 						<ul class="meta">
@@ -77,13 +77,13 @@
 				</div>
 				<?php
 				if ($i == $dem) {
-					?>
+				?>
 				</div>
-				<?php
+	<?php
 				}
+			}
+			$i++;
 		}
-		$i++;
-	}
 	?>
 
 </div>
