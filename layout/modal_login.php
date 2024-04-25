@@ -24,11 +24,9 @@
             <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
           </div>
           <div class="modal-footer">
-<<<<<<< HEAD
+
         <?php include("modal_singup.php") ?>
-=======
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Đăng ký</button>
->>>>>>> 731b684a4bbd003f0c12fd4ee35b83f6f60b0692
+
         <button type="submit" class="btn btn-primary">Đăng nhập</button>
       </div>
         </form>
