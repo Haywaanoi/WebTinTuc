@@ -29,28 +29,11 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
         include_once ("./home_include/sidebar.php");
         ?>
         <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
-
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb">
-                        <h3 class="fw-bold fs-4 mb-3">Tin tức</h3>
-                        <div class="mb-3">
+                        <h3 class="fw-bold fs-4 mb-2">Tin tức</h3>
+                        <div class="mb-2">
                             <a href="tintuc/them_tintuc.php">
                                 <input class="btn btn-primary" type="button" value="Thêm" />
                             </a>
@@ -60,7 +43,9 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                 <tr>
                                     <th>ID tin</th>
                                     <th>Title</th>
+                                    <th>Loại</th>
                                     <th>Thời gian</th>
+                                    <th>Hình ảnh</th>
                                     <th>Loại tin</th>
                                     <th>Action</th>
                                 </tr>
@@ -74,15 +59,21 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                     <tr>
                                         <td><?php echo $row['id_tin'] ?></td>
                                         <td><?php echo $row['title']; ?> </td>
+                                        <td><?php 
+                                            if($row['hot'] == 1)
+                                            {
+                                                echo '<p style="color: red; front-weight:1px spoild" >hot</p>';
+                                            }
+                                            else{ echo ' ';}
+                                        ?></td>
                                         <td><?php echo $row['datetime']; ?> </td>
+                                        <td><img src="<?php echo $row['image']; ?>" alt="" height="70px" width="100px"></td>
                                         <td><?php echo $row['id_loaitin']; ?> </td>
                                         <td>
                                             <a href="tintuc/sua_tintuc.php?id_tin=<?php echo $row['id_tin'] ?>">
                                                 <input type="button" value="Sửa" />
                                             </a>
-                                            <a href="tintuc/xoa_tintuc.php?id_tin=<?php echo $row['id_tin'] ?>">
-                                                <input type="button" value="Xóa" />
-                                            </a>
+                                            <Button onclick="confirmDelete('<?php echo $row['id_tin'] ?>')">Xóa</Button>
                                         </td>
 
                                     </tr>
@@ -128,7 +119,16 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
+            
         });
+
+        function confirmDelete(id) {
+            var confirmDelete = confirm("Bạn muốn xóa không?" + id); // Hiển thị thông báo xác nhận
+            if (confirmDelete) {
+                // Nếu người dùng xác nhận, thực hiện hành động xóa
+                window.location.href = "tintuc/xoa_tintuc.php?id_tin=" + id;
+            }
+        }
     </script>
 </body>
 

@@ -6,19 +6,50 @@ if (isset($_POST['btnthem'])) {
     if ($_POST['title'] == "") {
         echo "Xin vui lòng nhập title<br />";
     } else {
-        $title = $_POST['title'];
-        $id_tin = $_GET['id_tin'];
-        $loaitin_id = $_POST['loaitin'];
-        $noidung = $_POST['noi_dung'];
-        $en_id = str_replace(" ", "-", $title);
-        $slug = cleanNonAsciiCharactersInString($en_id);
-        $sql = ("UPDATE tin_tuc SET slug = ?, title = ?, noi_dung = ?, datetime = NOW(), id_loaitin = ? where id_tin = ? ");
-        $stm = $dbh->prepare($sql);
-        $stm->execute([$slug, $title, $noidung, $loaitin_id, $id_tin]);
-        header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
-        exit();
+        if ($_FILES['img']['size'] > 0) {
+            $img_name = $_FILES['img']['name'];
+            $img_tmp = $_FILES['img']['tmp_name'];
+            $img_save = "assets/img" . $img_name;
+            $img_destination = "../assets/img" . $img_name;
+            move_uploaded_file($img_tmp, $img_destination);
+            $title = $_POST['title'];
+            $id_tin = $_GET['id_tin'];
+            $sub_title = $_POST['sub_title'];
+            $loaitin_id = $_POST['loaitin'];
+            $noidung = $_POST['noi_dung'];
+            $en_id = str_replace(" ", "-", $title);
+            $slug = cleanNonAsciiCharactersInString($en_id);
+            $sql = ("UPDATE tin_tuc SET slug = ?, title = ?,sub_title=?,image=? ,noi_dung = ?, datetime = NOW(), id_loaitin = ? where id_tin = ? ");
+            $stm = $dbh->prepare($sql);
+            $stm->execute([$slug, $title,$sub_title,$img_save ,$noidung, $loaitin_id, $id_tin]);
+            echo '
+            <script>
+            confirm("Sửa thành công");
+            window.location.href = "../admin.php?admin=tintuc";
+            </script>
+            ';
+        }
+        else{
+            $title = $_POST['title'];
+            $id_tin = $_GET['id_tin'];
+            $sub_title = $_POST['sub_title'];
+            $loaitin_id = $_POST['loaitin'];
+            $noidung = $_POST['noi_dung'];
+            $en_id = str_replace(" ", "-", $title);
+            $slug = cleanNonAsciiCharactersInString($en_id);
+            $sql = ("UPDATE tin_tuc SET slug = ?, title = ?,sub_title=? ,noi_dung = ?, datetime = NOW(), id_loaitin = ? where id_tin = ? ");
+            $stm = $dbh->prepare($sql);
+            $stm->execute([$slug, $title,$sub_title,$noidung, $loaitin_id, $id_tin]);
+            echo '
+            <script>
+            confirm("Sửa thành công");
+            window.location.href = "../admin.php?admin=tintuc";
+            </script>
+            ';
+        }
+
     }
-}elseif(isset($_POST["btnreset"])) {
+} elseif (isset($_POST["btnreset"])) {
     header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
 }
 $loaitin = $dbh->query("SELECT * FROM loai_tin ");
@@ -75,7 +106,7 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
                         <h3 class="fw-bold fs-4 mb-3">Tin tức</h3>
                         <div class="row">
                             <div class="col-12">
-                                <form action="?id_tin=<?php echo $row['id_tin']; ?>" method="post" name="frm">
+                                <form action="?id_tin=<?php echo $row['id_tin']; ?>" method="post" name="frm"  enctype="multipart/form-data">
                                     <table class="table table-striped">
                                         <tr>
                                             <td colspan=2>Sửa tin tức</td>
@@ -109,6 +140,24 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
                                             <td>Title</td>
                                             <td><input type="text" name="title" value="<?php echo $row['title']; ?>"
                                                     style="width:100%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sub Title</td>
+                                            <td><input type="text" name="sub_title" value="<?php echo $row['sub_title']; ?>"
+                                             style="width:100%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="<?php echo $row['image']; ?>" alt="">
+                                            </td>
+                                            <td>
+                                                <div class="">
+                                                    <label for="recipient-name" class="col-form-label">img:</label>
+                                                    <input type="file" class="form-control" id="recipient-name"
+                                                        accept=".jpg,.png,.jpeg" name="img">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>

@@ -18,9 +18,9 @@
 </head>
 <?php
 include_once ("../include/connect.php");
-$hienthi = $dbh->query("SELECT * FROM binh_luan join tin_tuc on binh_luan.id_tin = tin_tuc.id_tin");
+$hienthi = $dbh->query("SELECT * FROM user");
 $dem = $hienthi->rowCount();
-$hienthi->fetch(PDO::FETCH_ASSOC);
+$hienthi->fetch(PDO::FETCH_ASSOC)
 ?>
 
 <body>
@@ -32,56 +32,36 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb">
-                        <h3 class="fw-bold fs-4 mb-2">Bình Luận</h3>
+                        <h3 class="fw-bold fs-4 mb-2">Tài khoản</h3>
                         <div class="mb-2">
-                            <a href="tintuc/them_tintuc.php">
-                                <input class="btn btn-primary" type="button" value="Thêm" />
-                            </a>
+                        <?php
+                         include("taikhoan/modal_them.php")
+                        ?>
                         </div>
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ID tin</th>
+                                    <th>#</th>
                                     <th>Email</th>
-                                    <th>Thời gian</th>
-                                    <th>Nội dung</th>
-                                    <th>Trạng thái</th>
-                                    <th>Tin tức</th>
+                                    <th>Họ và Tên</th>
+                                    <th>Quyền</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-
+                                $id = 1;
+                                $stt = 0;
                                 foreach ($hienthi as $row) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['id_binhluan'] ?></td>
+                                        <td><?php echo $stt += $id; ?></td>
                                         <td><?php echo $row['email']; ?> </td>
-                                        <td><?php echo $row['thoi_gian']; ?> </td>
-                                        <td><?php echo $row['noi_dung_binh_luan']; ?> </td>
-                                        <td><?php if( $row['trang_thai']==0)
-                                            {
-                                                echo 'Chưa duyệt';
-                                            }
-                                            else{ echo 'Đã duyệt';}
-                                         ?> 
-                                         </td>
-                                        <td><?php echo $row['title']; ?> </td>
+                                        <td><?php echo $row['name']; ?> </td>
+                                        <td><?php echo $row['role'] ?></td>
                                         <td>
-                                            <a href="binhluan/duyet_binh_luan.php?id_binhluan=<?php echo $row['id_binhluan'] ?>">
-                                                <input type="button" value="<?php 
-                                                    if( $row['trang_thai']==0)
-                                                    {
-                                                        echo 'Duyệt bình luận';
-                                                    }
-                                                    else{ echo 'Hủy duyệt';}
-                                                
-                                                ?>" />
-                                            </a>
-                                            <a href="binhluan/xoa_binh_luan.php?id_binhluan=<?php echo $row['id_binhluan'] ?>">
-                                                <input type="button" value="Xóa bình luận" />
-                                            </a>
+                                        <a href="taikhoan/xoa_taikhoan.php?email=<?php echo $row['email'] ?>">
+                                                <input type="button" value="Xóa" />
                                         </td>
 
                                     </tr>
@@ -118,6 +98,7 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
             </footer>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -129,6 +110,8 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
             $('#example').DataTable();
         });
     </script>
+
+
 </body>
 
 </html>

@@ -13,6 +13,11 @@ if($nhomtin != '' && $ten_loaitin != '')
    $sql = ("INSERT INTO loai_tin( id_loaitin,ten_loaitin, id_nhomtin) values(?,?,?)");
    $stm = $dbh->prepare($sql);
    $stm->execute([$id,$ten_loaitin, $nhomtin]);
+   echo'
+   <script>
+   confirm("Thêm thành công");
+   window.location.href = "../admin.php?admin=loaitin";
+   </script>
+   ';
 }
-header('location: ../admin.php?admin=loaitin');
 ?>

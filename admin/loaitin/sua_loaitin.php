@@ -15,8 +15,12 @@ if (isset($_POST['btnthem'])) {
         $sql = ("UPDATE loai_tin SET ten_loaitin = ?, id_nhomtin =? where id_loaitin = ? ");
         $stm = $dbh->prepare($sql);
         $stm->execute([$loaitin, $nhomtin_id, $id_loaitin]);
-        header("location:/WebTinTuc/admin/admin.php?admin=loaitin");
-        exit();
+        echo'
+        <script>
+        confirm("Sửa thành công");
+        window.location.href = "../admin.php?admin=loaitin";
+        </script>
+        ';
     }
 }
 $nhomtin = $dbh->query("SELECT * FROM nhom_tin ");

@@ -15,7 +15,12 @@ if (isset($_POST['btnthem'])) {
         $query->bindParam(':ten_nhomtin', $m);
         $query->bindParam(':id_nhomtin', $id_nhomtin);
         $query->execute();
-        header("location:/WebTinTuc/admin/admin.php?admin=nhomtin");
+        echo'
+        <script>
+        confirm("Sửa thành công");
+        window.location.href = "../admin.php?admin=nhomtin";
+        </script>
+        ';
         exit();
     }
 }

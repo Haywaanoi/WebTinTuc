@@ -13,6 +13,10 @@ if (isset($_GET['admin']))
 			break;
 		case "binhluan":
 			include("view/binh_luan_view.php");
+			break;
+		case "taikhoan":
+			include("view/tai_khoan_view.php");
+		
 	}
 else {
 	header("location:index.php");

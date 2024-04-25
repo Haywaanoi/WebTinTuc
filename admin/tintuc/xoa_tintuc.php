@@ -11,8 +11,19 @@ if ($row == 1) {
     $query = $dbh->prepare($delete);
     $query->bindParam(':id_tin', $_GET['id_tin']);
     $query->execute();
+    echo'
+    <script>
+    confirm("Xóa thành công");
+    window.location.href = "../admin.php?admin=tintuc";
+    </script>
+    ';
 } else {
-    echo 'Không thể xóa';
+    echo'
+    <script>
+    confirm("Xóa thất bại");
+    window.location.href = "../admin.php?admin=tintuc";
+    </script>
+    ';
 }
-header('location: ../admin.php?admin=tintuc');
+
 ?>

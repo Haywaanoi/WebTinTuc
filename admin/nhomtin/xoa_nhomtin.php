@@ -11,8 +11,20 @@ if ($row == 0) {
     $query = $dbh->prepare($delete);
     $query->bindParam(':id_nhomtin', $_GET['id_nhomtin']);
     $query->execute();
+    echo'
+    <script>
+    confirm("Xóa thành công");
+    window.location.href = "../admin.php?admin=nhomtin";
+    </script>
+    ';
 } else {
     echo 'Không thể xóa';
+    echo'
+    <script>
+    confirm("Xóa thất bại");
+    window.location.href = "../admin.php?admin=nhomtin";
+    </script>
+    ';
 }
-header('location: ../admin.php?admin=nhomtin');
+
 ?>

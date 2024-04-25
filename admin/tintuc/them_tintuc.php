@@ -6,18 +6,31 @@ if (isset($_POST['btnthem'])) {
     if ($_POST['title'] == "") {
         echo "Xin vui lòng nhập title<br />";
     } else {
+
         $title = $_POST['title'];
+        $sub_title = $_POST['Sub_title'];
         $loaitin_id = $_POST['loaitin'];
         $noidung = $_POST['noi_dung'];
         $en_id = str_replace(" ", "-", $title);
         $slug = cleanNonAsciiCharactersInString($en_id);
-        $sql = ("INSERT INTO tin_tuc (slug, title, noi_dung, datetime, id_loaitin) VALUES(?,?,?,now(),?)");
+       
+        $img_name = $_FILES['img']['name'];
+        $img_tmp = $_FILES['img']['tmp_name'];
+        $img_save="assets/img" . $img_name;
+        $img_destination = "../assets/img" . $img_name;
+        move_uploaded_file($img_tmp, $img_destination);
+
+        $sql = ("INSERT INTO tin_tuc (slug, title, sub_title,image,noi_dung, datetime, id_loaitin) VALUES(?,?,?,?,?,now(),?)");
         $stm = $dbh->prepare($sql);
-        $stm->execute([$slug, $title, $noidung, $loaitin_id]);
-        header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
-        exit();
+        $stm->execute([$slug, $title, $sub_title, $img_save, $noidung, $loaitin_id]);
+        echo '
+        <script>
+        confirm("Thêm thành công");
+        window.location.href = "../admin.php?admin=tintuc";
+        </script>
+        ';
     }
-}elseif(isset($_POST["btnreset"])) {
+} elseif (isset($_POST["btnreset"])) {
     header("location:/WebTinTuc/admin/admin.php?admin=tintuc");
 }
 
@@ -67,7 +80,7 @@ $loaitin1 = $loaitin->rowCount();
                         <h3 class="fw-bold fs-4 mb-3">Tin tức</h3>
                         <div class="row">
                             <div class="col-12">
-                                <form action="" method="post" name="frm">
+                                <form action="" method="post" name="frm" enctype="multipart/form-data">
                                     <table class="table table-striped">
                                         <tr>
                                             <td colspan=2>Thêm tin tức</td>
@@ -75,7 +88,7 @@ $loaitin1 = $loaitin->rowCount();
                                         <tr>
                                             <td>Loại tin</td>
                                             <td>
-                                            <select class="form-select" aria-label="Default select example"
+                                                <select class="form-select" aria-label="Default select example"
                                                     name="loaitin">
                                                     <?php
                                                     foreach ($loaitin as $nhom) { ?>
@@ -94,10 +107,25 @@ $loaitin1 = $loaitin->rowCount();
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Sub Title</td>
+                                            <td><input type="text" name="Sub_title" style="width:100%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Image_url:</td>
+                                            <td>
+                                                <div class="">
+                                                    <label for="recipient-name" class="col-form-label">img:</label>
+                                                    <input type="file" class="form-control" id="recipient-name"
+                                                        accept=".jpg,.png,.jpeg" name="img">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Nội dung</td>
                                             <td>
                                                 <textarea id="editor" name="noi_dung">
-                                                    
+
                                                 </textarea>
                                             </td>
                                         </tr>

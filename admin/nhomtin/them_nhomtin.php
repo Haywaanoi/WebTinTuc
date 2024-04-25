@@ -12,6 +12,12 @@ if($ten_nhomtin != '')
    $sql = ("INSERT INTO nhom_tin(id_nhomtin,ten_nhomtin) values(?,?)");
    $stm = $dbh->prepare($sql);
    $stm->execute([$id,$ten_nhomtin]);
+   echo'
+    <script>
+    confirm("Thêm thành công");
+    window.location.href = "../admin.php?admin=nhomtin";
+    </script>
+    ';
 }
-header('location: ../admin.php?admin=nhomtin');
+
 ?>

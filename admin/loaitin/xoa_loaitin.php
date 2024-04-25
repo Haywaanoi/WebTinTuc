@@ -11,8 +11,18 @@ if ($row == 0) {
     $query = $dbh->prepare($delete);
     $query->bindParam(':id_loaitin', $_GET['id_loaitin']);
     $query->execute();
+    echo'
+    <script>
+    confirm("Xóa thành công");
+    window.location.href = "../admin.php?admin=loaitin";
+    </script>
+    ';
 } else {
-    echo 'Không thể xóa';
+    echo'
+    <script>
+    confirm("Xóa thất bại vì có tin trong loại tin này");
+    window.location.href = "../admin.php?admin=loaitin";
+    </script>
+    ';
 }
-header('location: ../admin.php?admin=loaitin');
 ?>
