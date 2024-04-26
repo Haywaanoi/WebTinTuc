@@ -1,6 +1,6 @@
 <!-- Start top-post Area -->
 <?php
-include ("include/connect.php");
+include_once ("include/connect.php");
 ?>
 <section class="top-post-area pt-10">
 

@@ -33,6 +33,14 @@ include("include/connect.php");
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        textarea{
+            width: 100%;
+            max-width: 100%;
+            resize: vertical;
+            margin: 5pt;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +49,7 @@ include("include/connect.php");
     include 'layout/header.php';
     ?>
 
-    <div class="container pt-50 bg-white ">
+    <div class="container-fluid pt-50 bg-white ">
         <?php
         if (isset($_GET['id'])) {
             $id_tin = $_GET['id'];
@@ -95,10 +103,10 @@ include("include/connect.php");
             <h3>Ý Kiến</h1>
                 <div class="pt-20">
                     <form action="/mail.php">
-                        <div>
-                            <textarea name="" id="" cols="70" rows="5" placeholder="Chia sẻ ý kiến của bạn"></textarea>
+                        <div class="pb-50">
+                            
+                            <textarea name="" id="" placeholder="Chia sẻ ý kiến của bạn"></textarea>
                         </div>
-                        <span>Bạn chưa nhập nội dung bình luận</span>
                     </form>
                 </div>
         </div>
