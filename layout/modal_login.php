@@ -25,7 +25,7 @@
           </div>
           <div class="modal-footer">
 
-        <?php include("modal_singup.php") ?>
+          <button type="button" class="close" name="singup"  data-dismiss="modal" aria-label="Close">Đóng</button>
 
         <button type="submit" class="btn btn-primary">Đăng nhập</button>
       </div>
