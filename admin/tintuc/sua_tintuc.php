@@ -213,10 +213,15 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+    <script src="../assets/plugin/ckfinder/ckfinder.js"></script>
+    <script src="../assets/plugin/ckeditor/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#editor'))
+        .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '../assets/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                },
+            })
             .catch(error => {
                 console.error(error);
             });

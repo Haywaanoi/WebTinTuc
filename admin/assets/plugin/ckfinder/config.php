@@ -66,11 +66,12 @@ $config['images'] = array(
 $config['backends'][] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => '/ckfinder/userfiles/',
-//  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
-    'chmodFiles'   => 0777,
+    'baseUrl'      => 'http://domain.com/ckfinder/userfiles/',
+    'root'         => '/var/www/ckfinder/userfiles/',
+    'chmodFiles'   => 0755,
     'chmodFolders' => 0755,
     'filesystemEncoding' => 'UTF-8',
+    'followSymlinks'     => true
 );
 
 /*================================ Resource Types =====================================*/
