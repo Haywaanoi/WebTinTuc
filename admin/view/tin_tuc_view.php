@@ -61,10 +61,14 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                         <td><?php echo $row['title']; ?> </td>
                                         <td><?php 
                                             if($row['hot'] == 1)
-                                            {
-                                                echo '<p style="color: red; front-weight:1px spoild" >hot</p>';
-                                            }
-                                            else{ echo ' ';}
+                                            { ?>
+                                                <p style="color: red; front-weight:1px spoild" >tin hot</p>
+                                                <a href="tintuc/tin_hot.php?id_tin=<?php echo $row['id_tin'] ?>">Huy</a>
+                                                
+                                            <?php }
+                                            else{ ?> 
+                                            <a href="tintuc/tin_hot.php?id_tin=<?php echo $row['id_tin'] ?>">Chon tin hot</a> 
+                                           <?php }
                                         ?></td>
                                         <td><?php echo $row['datetime']; ?> </td>
                                         <td><img src="<?php echo $row['image']; ?>" alt="" height="70px" width="100px"></td>
