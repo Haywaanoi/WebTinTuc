@@ -217,7 +217,11 @@ $row = $query->fetch(PDO::FETCH_ASSOC);
     <script src="../assets/plugin/ckeditor/ckeditor.js"></script>
     <script>
         ClassicEditor
-        .create(document.querySelector('#editor'), {
+            .create(document.querySelector('#editor'), {
+                cloudServices: {
+            tokenUrl: 'https://example.com/cs-token-endpoint',
+            uploadUrl: 'https://your-organization-id.cke-cs.com/easyimage/upload/'
+        },
                 ckfinder: {
                     uploadUrl: '../assets/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
                 },

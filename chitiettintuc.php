@@ -77,7 +77,7 @@ session_start();
                                     <span><?php echo $tin_tuc['datetime'] ?></span>
                                 </div>
                                 <h1 class="pt-2"><?php echo $tin_tuc['title'] ?></h1>
-                                <div class="pt-4">
+                                <div class="pt-4" style="max-width: 730px">
                                     <?php
                                     echo $tin_tuc['noi_dung'] ?>
                                 </div>
