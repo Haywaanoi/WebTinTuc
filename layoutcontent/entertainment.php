@@ -50,7 +50,7 @@
 							<img class="img-fluid" src="<?php echo $row['image'] ?>">
 						</div>
 						<div class="detail">
-							<a href="<?php echo "https:vnexpress.net/" . $row['slug'] . "-" . $row['id_tin'] . ".html"; ?>">
+							<a href="chitiettintuc.php?id=<?php echo $row['id_tin']; ?>">
 								<h6><?php echo $row['title']; ?></h6>
 							</a>
 							<ul class="meta">

@@ -13,10 +13,10 @@ if (isset($_POST['btnthem'])) {
         $noidung = $_POST['noi_dung'];
         $en_id = str_replace(" ", "-", $title);
         $slug = cleanNonAsciiCharactersInString($en_id);
-       
+
         $img_name = $_FILES['img']['name'];
         $img_tmp = $_FILES['img']['tmp_name'];
-        $img_save="assets/img" . $img_name;
+        $img_save = "assets/img" . $img_name;
         $img_destination = "../assets/img" . $img_name;
         move_uploaded_file($img_tmp, $img_destination);
 
@@ -173,9 +173,15 @@ $loaitin1 = $loaitin->rowCount();
         crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+    <script src="../assets/plugin/ckfinder/ckfinder.js"></script>
+    <script src="../assets/plugin/ckeditor/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#editor'))
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '../assets/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                },
+            })
             .catch(error => {
                 console.error(error);
             });
