@@ -10,7 +10,7 @@
 		$i = 0;
 		foreach ($thethaos as $row) {
 			if ($i == 0) {
-		?>
+				?>
 				<div class="feature-img-wrap relative">
 					<div class="feature-img relative">
 						<div class="overlay overlay-bg"></div>
@@ -62,12 +62,12 @@
 							</ul>
 						</div>
 					</div>
-			<?php
+					<?php
 			}
-			if ($i == $dem) {
+			if($i == $dem) {
 				echo '</div>';
 			}
 		}
-			?>
-				</div>
+		?>
 	</div>
+</div>
