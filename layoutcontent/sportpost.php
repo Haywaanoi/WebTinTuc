@@ -20,7 +20,7 @@
 					</ul>
 				</div>
 				<div class="col-lg-7 post-right">
-					<a href="chitiettintuc.php?id=<?php echo $hot['id_tin']; ?>">
+					<a href="chitiettintuc.php?id=<?php echo $row['id_tin']; ?>">
 						<h4><?php echo $row['title'] ?></h4>
 					</a>
 					<ul class="meta">

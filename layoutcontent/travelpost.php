@@ -26,7 +26,7 @@
 					<ul class="tags">
 						<li><a href="#">Du lịch</a></li>
 					</ul>
-					<a href="<?php echo "https:vnexpress.net/" . $hot['slug'] . "-" . $hot['id_tin'] . ".html" ?>">
+					<a href="chitiettintuc.php?id=<?php echo $row['id_tin']; ?>">
 						<h3><?php echo $row['title']; ?></h3>
 					</a>
 					<ul class="meta">
@@ -59,7 +59,7 @@
 						</ul>
 					</div>
 					<div class="details">
-						<a href="chitiettintuc.php?id=<?php echo $hot['id_tin']; ?>">
+						<a href="chitiettintuc.php?id=<?php echo $row['id_tin']; ?>">
 							<h4><?php echo $row['title']; ?></h4>
 						</a>
 						<ul class="meta">
