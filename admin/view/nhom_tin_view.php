@@ -34,9 +34,9 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                     <div class="mb">
                         <h3 class="fw-bold fs-4 mb-2">Nhóm tin</h3>
                         <div class="mb-2">
-                        <?php
-                         include("nhomtin/modal_them_nhomtin.php")
-                        ?>
+                            <?php
+                            include ("nhomtin/modal_them_nhomtin.php")
+                                ?>
                         </div>
                         <table id="example" class="display" style="width:100%">
                             <thead>
@@ -53,8 +53,12 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                 foreach ($hienthi as $row) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $stt += $id; ?></td>
-                                        <td><?php echo $row['ten_nhomtin']; ?> </td>
+                                        <td>
+                                            <?php echo $stt += $id; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['ten_nhomtin']; ?>
+                                        </td>
                                         <td>
                                             <a href="nhomtin/sua_nhomtin.php?id_nhomtin=<?php echo $row['id_nhomtin'] ?>">
                                                 <input type="button" value="Sửa" />
@@ -108,12 +112,12 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
         });
 
         function confirmDelete(id) {
-    var confirmDelete = confirm("Bạn muốn xóa không?" + id); // Hiển thị thông báo xác nhận
-    if (confirmDelete) {
-        // Nếu người dùng xác nhận, thực hiện hành động xóa
-        window.location.href = "nhomtin/xoa_nhomtin.php?id_nhomtin=" + id;
-    }
-}
+            var confirmDelete = confirm("Bạn muốn xóa không?" + id); // Hiển thị thông báo xác nhận
+            if (confirmDelete) {
+                // Nếu người dùng xác nhận, thực hiện hành động xóa
+                window.location.href = "nhomtin/xoa_nhomtin.php?id_nhomtin=" + id;
+            }
+        }
 
 
     </script>

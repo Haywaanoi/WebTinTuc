@@ -1,7 +1,7 @@
 
 <?php
-include("include/connect.php");
 session_start();
+include("include/connect.php");
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +62,22 @@ session_start();
             $query->execute();
             $tin_tuc = $query->fetch(PDO::FETCH_ASSOC);
 
+
+            
+
+
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && $_SESSION['role'] == 'admin') {  
+                    $hienthi = $dbh->query("SELECT * FROM binh_luan join user on binh_luan.email = user.email where id_tin = $id_tin");
+                    $dem = $hienthi->rowCount();
+                 
+            } else {
+                
+                $hienthi = $dbh->query("SELECT * FROM binh_luan join user on binh_luan.email = user.email where id_tin = $id_tin and trang_thai = 1");
+                $dem = $hienthi->rowCount();
+              
+            }
+            
+            
             // Kiểm tra xem tin tức có tồn tại không
             if ($tin_tuc) {
                 // Hiển thị nội dung chi tiết của tin tức
@@ -78,9 +94,11 @@ session_start();
                                 </div>
                                 <h1 class="pt-2"><?php echo $tin_tuc['title'] ?></h1>
                                 <div class="pt-4" style="max-width: 730px">
+                                    <strong>
                                     <?php
                                     echo $tin_tuc['noi_dung'] ?>
                                 </div>
+                                    </strong>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -103,14 +121,60 @@ session_start();
     <div class="container pt-20">
         <div class="comment ">
             <h3>Ý Kiến</h1>
-                <div class="pt-20">
-                    <form action="/mail.php">
-                        <div class="pb-50">
-                            
-                            <textarea name="" id="" placeholder="Chia sẻ ý kiến của bạn"></textarea>
+                <div class="pt-20 mb-10">
+                    <form action="test_bluan.php" method="POST">
+                        <div class="pb-10">
+                            <textarea name="binh_luan" id="" placeholder="Chia sẻ ý kiến của bạn"></textarea>
                         </div>
+                        <input type="text" hidden name="id_tin" value="<?php echo $tin_tuc['id_tin']?>">
+                            
+                        </input>
+                        <?php
+                             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                                echo '<button class="btn-primary">Gửi</button>';
+                             }else{
+                                echo '<button disabled class="btn-primary">Đăng nhập để bình luận</button>';
+                             }
+                        ?>
+                        
                     </form>
                 </div>
+        </div>
+        <div class="w-100 ">
+            <?php
+            foreach($hienthi as $bluan)
+            {
+                ?>
+                <div>
+                    <p class="font-weight-bold text-dark fs-5">
+                        <?php echo $bluan['name']." " ;
+                        if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')
+                        {
+                            if($bluan['trang_thai'] == 0)
+                            {
+                               ?>
+                               <a href="duyet_bluan.php?id_bluan=<?php echo $bluan['id_binhluan'] ?>&id=<?php echo $tin_tuc['id_tin'] ?>">Hien Thi</a>
+                               <?php 
+                            }
+                            else
+                            {
+                                ?>
+                               <a href="duyet_bluan.php?id_bluan=<?php echo $bluan['id_binhluan'] ?>&id=<?php echo $tin_tuc['id_tin'] ?>">Ẩn bình luận</a>
+                               <?php 
+                            }
+                        }                       
+                        ?>
+
+                    </p>
+                </div>
+                <div>
+                <p class=" text-dark fs-5">
+                        <?php echo $bluan['noi_dung_binh_luan'] ?>
+                    </p>
+                </div>
+                <?php
+            }
+            ?>
         </div>
     </div>
     <?php

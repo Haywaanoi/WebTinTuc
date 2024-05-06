@@ -18,9 +18,14 @@
 </head>
 <?php
 include_once ("../include/connect.php");
-$hienthi = $dbh->query("SELECT * FROM binh_luan join tin_tuc on binh_luan.id_tin = tin_tuc.id_tin");
+$hienthi = $dbh->query("
+SELECT tin_tuc.id_tin ,title ,thoi_gian,COUNT(binh_luan.id_binhluan) so_luong
+FROM binh_luan  JOIN tin_tuc ON binh_luan.id_tin = tin_tuc.id_tin
+GROUP BY tin_tuc.id_tin
+ORDER BY thoi_gian DESC
+");
 $dem = $hienthi->rowCount();
-$hienthi->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <body>
@@ -41,12 +46,8 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ID tin</th>
-                                    <th>Email</th>
-                                    <th>Thời gian</th>
-                                    <th>Nội dung</th>
-                                    <th>Trạng thái</th>
                                     <th>Tin tức</th>
+                                    <th>Số bình luận</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,32 +57,10 @@ $hienthi->fetch(PDO::FETCH_ASSOC);
                                 foreach ($hienthi as $row) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['id_binhluan'] ?></td>
-                                        <td><?php echo $row['email']; ?> </td>
-                                        <td><?php echo $row['thoi_gian']; ?> </td>
-                                        <td><?php echo $row['noi_dung_binh_luan']; ?> </td>
-                                        <td><?php if( $row['trang_thai']==0)
-                                            {
-                                                echo 'Chưa duyệt';
-                                            }
-                                            else{ echo 'Đã duyệt';}
-                                         ?> 
-                                         </td>
-                                        <td><?php echo $row['title']; ?> </td>
+                                        <td><?php echo $row['title']; ?></td>
+                                        <td><?php echo $row['so_luong'] ?></td>
                                         <td>
-                                            <a href="binhluan/duyet_binh_luan.php?id_binhluan=<?php echo $row['id_binhluan'] ?>">
-                                                <input type="button" value="<?php 
-                                                    if( $row['trang_thai']==0)
-                                                    {
-                                                        echo 'Duyệt bình luận';
-                                                    }
-                                                    else{ echo 'Hủy duyệt';}
-                                                
-                                                ?>" />
-                                            </a>
-                                            <a href="binhluan/xoa_binh_luan.php?id_binhluan=<?php echo $row['id_binhluan'] ?>">
-                                                <input type="button" value="Xóa bình luận" />
-                                            </a>
+                                            <button><a href="<?php echo "/Webtintuc/chitiettintuc?id=".$row['id_tin']  ?>">Đi tới trang</a></button>
                                         </td>
 
                                     </tr>
